@@ -1,0 +1,27 @@
+{
+  "name": "chat-app-2.0",
+  "version": "1.0.0",
+  "description": "real time chat app",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "server": "nodemon server.js",
+    "build":"npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rahul Rai",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "bcryptjs": "^2.4.3",
+    "color": "^4.2.3",
+    "colors": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.3",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2"
+  }
+}
