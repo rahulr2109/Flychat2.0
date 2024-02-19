@@ -27,7 +27,7 @@ import { serverHost } from "../config/serverHost";
 const ENDPOINT = serverHost;
 var socket, selectedChatCompare;
 
-const SingleChat = ({ fetchAgain, setFetchAgain }) => {
+const SingleChat = ({ fetchAgain, setFetchAgain, functionFromParent }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -125,6 +125,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     fetchMessages();
+    functionFromParent(fetchMessages);
 
     selectedChatCompare = selectedChat;
     // eslint-disable-next-line
@@ -168,117 +169,55 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   return (
-    <>
+    <div>
       {selectedChat ? (
-        <Box overflowY="none">
-          <Box p="1">
-            <Flex minWidth="max-content" alignItems="center" gap="2">
-              <ButtonGroup gap="5">
-                <IconButton
-                  d={{ base: "flex", md: "none" }}
-                  icon={<ArrowBackIcon />}
-                  onClick={() => setSelectedChat("")}
-                />
-              </ButtonGroup>
+        <>
+          {loading ? (
+            <Spinner size="xl" w={20} h={20} alignSelf="center" margin="auto" />
+          ) : (
+            <div className="messages">
+              <ScrollableChat messages={messages} />
+            </div>
+          )}
 
-              <Spacer />
-
-              <Box p="2">
-                <Heading size="md">
-                  {messages && !selectedChat.isGroupChat
-                    ? getSender(user, selectedChat.users)
-                    : selectedChat.chatName.toUpperCase()}
-                </Heading>
-              </Box>
-
-              <Spacer />
-
-              <ButtonGroup gap="5">
-                {messages &&
-                  (!selectedChat.isGroupChat ? (
-                    <ProfileModal
-                      user={getSenderFull(user, selectedChat.users)}
-                    />
-                  ) : (
-                    <UpdateGroupChatModal
-                      fetchMessages={fetchMessages}
-                      fetchAgain={fetchAgain}
-                      setFetchAgain={setFetchAgain}
-                    />
-                  ))}
-              </ButtonGroup>
-            </Flex>
-          </Box>
-          <Box
-            d="flex"
-            flexDir="column"
-            p={3}
+          <FormControl
+            onKeyDown={sendMessage}
+            id="first-name"
+            isRequired
             mt={2}
-            bg="#E8E8E8"
-            w="100%"
-            h="auto"
-            borderRadius="lg"
+            mb={2}
           >
-            {loading ? (
-              <Spinner
-                size="xl"
-                w={20}
-                h={20}
-                alignSelf="center"
-                margin="auto"
-              />
-            ) : (
-              <div className="messages">
-                <ScrollableChat messages={messages} />
+            {istyping && !typing ? (
+              <div>
+                <Lottie
+                  options={defaultOptions}
+                  height={50}
+                  width={70}
+                  style={{ marginBottom: 15, marginLeft: 0 }}
+                />
               </div>
+            ) : (
+              <></>
             )}
-
-            <FormControl
-              onKeyDown={sendMessage}
-              id="first-name"
-              isRequired
-              mt={2}
-              mb={2}
-            >
-              {istyping ? (
-                <div>
-                  <Lottie
-                    options={defaultOptions}
-                    height={50}
-                    width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
-              <Input
-                variant="filled"
-                bg="darkgrey"
-                _hover={{ bg: "white" }}
-                placeholder="Enter a message.."
-                value={newMessage}
-                onChange={typingHandler}
-              />
-            </FormControl>
-          </Box>
-        </Box>
+            <Input
+              variant="filled"
+              bg="darkgrey"
+              _hover={{ bg: "lightgrey" }}
+              placeholder="Enter a message.."
+              value={newMessage}
+              onChange={typingHandler}
+            />
+          </FormControl>
+        </>
       ) : (
         // to get socket.io on same page
-        <Box
-          d="flex"
-          alignItems="center"
-          pt={100}
-          pl={20}
-          justifyContent="center"
-          h="100%"
-        >
+        <Box d="flex" justify-content="center" alignItems="center">
           <Text fontSize="3xl" fontFamily="Work sans">
             <h1>Click on a user to start chatting</h1>
           </Text>
         </Box>
       )}
-    </>
+    </div>
   );
 };
 

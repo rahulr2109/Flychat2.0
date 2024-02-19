@@ -19,7 +19,6 @@ const Chatpage = () => {
         justifyContent="space-between"
         w="100%"
         h="91.5vh"
-        p="1px"
       >
         {user ? <MyChats fetchAgain={fetchAgain} /> : <Loader />}
         {user ? (

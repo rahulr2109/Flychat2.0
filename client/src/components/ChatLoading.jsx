@@ -3,7 +3,7 @@ import { Skeleton } from "@chakra-ui/skeleton";
 
 const ChatLoading = () => {
   return (
-    <Stack>
+    <Stack m="2">
       <Skeleton height="45px" />
       <Skeleton height="45px" />
       <Skeleton height="45px" />

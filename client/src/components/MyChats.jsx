@@ -6,7 +6,14 @@ import { useEffect, useState } from "react";
 import { getSender } from "../config/ChatLogics";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
-import { Spacer, Flex, Button, ButtonGroup, Heading } from "@chakra-ui/react";
+import {
+  Spacer,
+  Flex,
+  Button,
+  ButtonGroup,
+  Heading,
+  Spinner,
+} from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 import { serverHost } from "../config/serverHost";
 
@@ -56,12 +63,22 @@ const MyChats = ({ fetchAgain }) => {
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderWidth="1px"
-      m={1}
+      m={4}
       overflow="hidden"
       maxWidth="100%"
-      h="90vh"
+      h="90%"
     >
-      <Box m={2} pb={1} px={1} maxWidth="600px" margin="auto">
+      <Box
+        m={2}
+        pb={1}
+        px={1}
+        py={1}
+        maxWidth="600px"
+        margin="auto"
+        borderRadius="lg"
+        bg="#E4DEDE"
+        h={{ base: "18%", md: "10%", sm: "20%" }}
+      >
         <Flex
           minWidth={{ base: "90%", md: "max-content" }}
           direction={{ base: "column", md: "row" }}
@@ -86,19 +103,21 @@ const MyChats = ({ fetchAgain }) => {
         </Flex>
       </Box>
 
+      {chats.length === 0 && <ChatLoading />}
+
       <Box
         d="flex"
         flexDir="column"
         p={3}
         bg="#F7F2F2"
         w="auto"
-        h="84%"
+        h={{ base: "81%", md: "90.5%", sm: "76%" }}
         borderRadius="lg"
         overflowY="auto"
         mt={2}
       >
         {chats ? (
-          <Stack overflowY="auto" h="auto">
+          <Stack overflowY="auto" h="">
             {chats.map((chat) => (
               <Box
                 onClick={() => setSelectedChat(chat)}
@@ -128,7 +147,7 @@ const MyChats = ({ fetchAgain }) => {
             ))}
           </Stack>
         ) : (
-          <ChatLoading />
+          <></>
         )}
       </Box>
     </Box>

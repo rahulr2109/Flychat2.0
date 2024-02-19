@@ -7,6 +7,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Heading,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
@@ -35,7 +36,7 @@ function Homepage() {
         borderWidth="1px"
       >
         <Center fontSize="4xl" fontFamily="Work sans">
-          FlyChat
+          <Heading>FlyChat</Heading>
         </Center>
       </Box>
       <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
