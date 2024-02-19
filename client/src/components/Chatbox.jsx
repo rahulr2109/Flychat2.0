@@ -13,7 +13,6 @@ import { getSender, getSenderFull } from "../config/ChatLogics";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
-import { set } from "mongoose";
 import { useEffect, useRef, useState } from "react";
 
 const Chatbox = ({ fetchAgain, setFetchAgain }) => {
