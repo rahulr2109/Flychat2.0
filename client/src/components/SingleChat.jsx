@@ -2,7 +2,15 @@ import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
 import "./styles.css";
-import { IconButton, Spinner, useToast } from "@chakra-ui/react";
+import {
+  ButtonGroup,
+  Flex,
+  Spacer,
+  IconButton,
+  Spinner,
+  useToast,
+  Heading,
+} from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -162,102 +170,111 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   return (
     <>
       {selectedChat ? (
-        <>
-          <Text
-            fontSize={{ base: "28px", md: "30px" }}
-            pb={3}
-            px={2}
-            w="100%"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent={{ md: "space-between" }}
-            alignItems="center"
-          >
-            <IconButton
-              d={{ base: "flex", md: "none" }}
-              icon={<ArrowBackIcon />}
-              onClick={() => setSelectedChat("")}
-            />
-            {messages &&
-              (!selectedChat.isGroupChat ? (
-                <>
-                  {getSender(user, selectedChat.users)}
-                  <ProfileModal
-                    marginLeft={0}
-                    user={getSenderFull(user, selectedChat.users)}
-                  />
-                </>
-              ) : (
-                <>
-                  {selectedChat.chatName.toUpperCase()}
-                  <UpdateGroupChatModal
-                    fetchMessages={fetchMessages}
-                    fetchAgain={fetchAgain}
-                    setFetchAgain={setFetchAgain}
-                  />
-                </>
-              ))}
-          </Text>
+        <Box overflowY="none">
+          <Box p="1">
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <ButtonGroup gap="5">
+                <IconButton
+                  d={{ base: "flex", md: "none" }}
+                  icon={<ArrowBackIcon />}
+                  onClick={() => setSelectedChat("")}
+                />
+              </ButtonGroup>
+
+              <Spacer />
+
+              <Box p="2">
+                <Heading size="md">
+                  {messages && !selectedChat.isGroupChat
+                    ? getSender(user, selectedChat.users)
+                    : selectedChat.chatName.toUpperCase()}
+                </Heading>
+              </Box>
+
+              <Spacer />
+
+              <ButtonGroup gap="5">
+                {messages &&
+                  (!selectedChat.isGroupChat ? (
+                    <ProfileModal
+                      user={getSenderFull(user, selectedChat.users)}
+                    />
+                  ) : (
+                    <UpdateGroupChatModal
+                      fetchMessages={fetchMessages}
+                      fetchAgain={fetchAgain}
+                      setFetchAgain={setFetchAgain}
+                    />
+                  ))}
+              </ButtonGroup>
+            </Flex>
+          </Box>
           <Box
             d="flex"
             flexDir="column"
-            p={1}
+            p={3}
+            mt={2}
             bg="#E8E8E8"
             w="100%"
-            h="75.5vh"
+            h="auto"
             borderRadius="lg"
-            overflow="none"
-            bottomMargin="0"
           >
-            <div bottomMargin="0">
-              {loading ? (
-                <Spinner
-                  size="xl"
-                  w={20}
-                  h={20}
-                  alignSelf="center"
-                  margin="auto"
-                />
-              ) : (
-                <div className="messages">
-                  <ScrollableChat messages={messages} />
-                </div>
-              )}
+            {loading ? (
+              <Spinner
+                size="xl"
+                w={20}
+                h={20}
+                alignSelf="center"
+                margin="auto"
+              />
+            ) : (
+              <div className="messages">
+                <ScrollableChat messages={messages} />
+              </div>
+            )}
 
-              <FormControl
-                onKeyDown={sendMessage}
-                id="first-name"
-                isRequired
-                mt={3}
-              >
-                {istyping ? (
-                  <div>
-                    <Lottie
-                      options={defaultOptions}
-                      // height={50}
-                      width={70}
-                      style={{ marginBottom: 15, marginLeft: 0 }}
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-                <Input
-                  variant="filled"
-                  bg="#E0E0E0"
-                  placeholder="Enter a message.."
-                  value={newMessage}
-                  onChange={typingHandler}
-                />
-              </FormControl>
-            </div>
+            <FormControl
+              onKeyDown={sendMessage}
+              id="first-name"
+              isRequired
+              mt={2}
+              mb={2}
+            >
+              {istyping ? (
+                <div>
+                  <Lottie
+                    options={defaultOptions}
+                    height={50}
+                    width={70}
+                    style={{ marginBottom: 15, marginLeft: 0 }}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+              <Input
+                variant="filled"
+                bg="darkgrey"
+                _hover={{ bg: "white" }}
+                placeholder="Enter a message.."
+                value={newMessage}
+                onChange={typingHandler}
+              />
+            </FormControl>
           </Box>
-        </>
+        </Box>
       ) : (
         // to get socket.io on same page
-        <Box d="flex" alignItems="center" justifyContent="center" h="100%">
-          <Text fontSize="3xl" pb={3} fontFamily="Work sans">
-            Click on a user to start chatting
+        <Box
+          d="flex"
+          alignItems="center"
+          pt={100}
+          pl={20}
+          justifyContent="center"
+          h="100%"
+        >
+          <Text fontSize="3xl" fontFamily="Work sans">
+            <h1>Click on a user to start chatting</h1>
           </Text>
         </Box>
       )}

@@ -143,8 +143,8 @@ function SideDrawer() {
       >
         <div>
           <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-            <Button variant="ghost" onClick={onOpen}>
-              <i className="fas fa-search"></i>
+            <Button bg="lightgrey" variant="ghost" onClick={onOpen}>
+              <i className="fa fa-search" aria-hidden="true"></i>
               <Text d={{ base: "none", md: "flex" }} px="4">
                 Search User
               </Text>
@@ -185,7 +185,11 @@ function SideDrawer() {
             }
           </Menu>
           <Menu>
-            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              bg="lightgrey"
+              rightIcon={<ChevronDownIcon />}
+            >
               <Avatar
                 size="sm"
                 cursor="pointer"
@@ -216,7 +220,9 @@ function SideDrawer() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button onClick={handleSearch}>Go</Button>
+              <Button mt={2} onClick={handleSearch}>
+                Go
+              </Button>
             </Box>
             {loading ? (
               <ChatLoading />

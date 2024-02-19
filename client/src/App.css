@@ -1,12 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
 
-.App {
+.App1 {
   min-height: 100vh;
   display: flex;
   background-image: url("./background.png");
   background-position: center;
   background-size: cover;
   color: black;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.App{
+  background-image: linear-gradient(-45deg,
+  #00416A,
+  #4286f4,
+  #6dd5ed,
+  #2193b0,
+  #E4E5E6);
+    background-size: 400%;
+    animation: bg 15s ease-in-out infinite;
+    height: auto;
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 :-webkit-scrollbar {

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-/*import { ChatState } from "../../Context/ChatProvider";*/
+import { ChatState } from "../../Context/ChatProvider";
 import { serverHost } from "../../config/serverHost";
 
 const Login = () => {
@@ -18,9 +18,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
-  /*
+
   const { setUser } = ChatState();
-  */
+
   const submitHandler = async () => {
     setLoading(true);
     if (!email || !password) {
@@ -55,7 +55,7 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
-      //setUser(data);
+      setUser(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       history.push("/chats");

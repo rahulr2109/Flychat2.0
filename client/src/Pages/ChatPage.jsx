@@ -4,6 +4,7 @@ import Chatbox from "../components/Chatbox";
 import MyChats from "../components/MyChats";
 import SideDrawer from "../components/miscellaneous/SideDrawer";
 import { ChatState } from "../Context/ChatProvider";
+import Loader from "../components/utils/Loader";
 
 const Chatpage = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
@@ -20,10 +21,17 @@ const Chatpage = () => {
         h="91.5vh"
         p="1px"
       >
-        {user && <MyChats fetchAgain={fetchAgain} />}
-        {user && (
+        {user ? <MyChats fetchAgain={fetchAgain} /> : <Loader />}
+        {user ? (
           <Chatbox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+        ) : (
+          <Loader />
         )}
+
+        {/* Below Code is commented out*/}
+
+        {/*user && <MyChats fetchAgain={fetchAgain} />*/}
+        {/*user && (<Chatbox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} /> )*/}
       </Box>
     </div>
   );

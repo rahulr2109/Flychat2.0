@@ -28,7 +28,7 @@ function Homepage() {
         d="flex"
         justifyContent="center"
         p={3}
-        bg="white"
+        bg="lightblue"
         w="100%"
         m="40px 0 15px 0"
         borderRadius="lg"

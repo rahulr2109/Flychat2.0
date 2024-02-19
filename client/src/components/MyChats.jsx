@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getSender } from "../config/ChatLogics";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
-import { Button } from "@chakra-ui/react";
+import { Spacer, Flex, Button, ButtonGroup, Heading } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 import { serverHost } from "../config/serverHost";
 
@@ -59,40 +59,46 @@ const MyChats = ({ fetchAgain }) => {
       m={1}
       overflow="hidden"
       maxWidth="100%"
+      h="90vh"
     >
-      <Box
-        pb={3}
-        px={1}
-        fontSize={{ base: "28px", md: "30px" }}
-        fontFamily="Work sans"
-        d="flex"
-        w="100%"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        My Chats
-        <GroupChatModal>
-          <Button
-            px={5}
-            d="flex"
-            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-            rightIcon={<AddIcon />}
-          >
-            New Group Chat
-          </Button>
-        </GroupChatModal>
+      <Box m={2} pb={1} px={1} maxWidth="600px" margin="auto">
+        <Flex
+          minWidth={{ base: "90%", md: "max-content" }}
+          direction={{ base: "column", md: "row" }}
+          alignItems={{ base: "initial", md: "center" }}
+          gap={{ base: "1", md: "1" }}
+        >
+          <Box p="2">
+            <Heading size="md">My Chats</Heading>
+          </Box>
+          <Spacer />
+          <ButtonGroup gap="1">
+            <GroupChatModal>
+              <Button
+                d="flex"
+                fontSize={{ base: "15px", md: "10px", lg: "17px" }}
+                rightIcon={<AddIcon />}
+              >
+                New Group Chat
+              </Button>
+            </GroupChatModal>
+          </ButtonGroup>
+        </Flex>
       </Box>
+
       <Box
         d="flex"
         flexDir="column"
         p={3}
-        bg="#F8F8F8"
-        w="100%"
-        h="90%"
+        bg="#F7F2F2"
+        w="auto"
+        h="84%"
         borderRadius="lg"
+        overflowY="auto"
+        mt={2}
       >
         {chats ? (
-          <Stack overflowY="none">
+          <Stack overflowY="auto" h="auto">
             {chats.map((chat) => (
               <Box
                 onClick={() => setSelectedChat(chat)}
@@ -103,6 +109,7 @@ const MyChats = ({ fetchAgain }) => {
                 py={2}
                 borderRadius="lg"
                 key={chat._id}
+                _hover={{ bg: "darkgrey", color: "white" }}
               >
                 <Text>
                   {!chat.isGroupChat
