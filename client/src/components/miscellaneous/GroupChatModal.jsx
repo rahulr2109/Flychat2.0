@@ -18,7 +18,6 @@ import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
-import { serverHost } from "../../config/serverHost";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,7 +59,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `${serverHost}/api/user?search=${search}`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/user?search=${search}",
         config
       );
       //console.log(data);
@@ -101,7 +100,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.post(
-        `${serverHost}/api/chat/group`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/chat/group",
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),

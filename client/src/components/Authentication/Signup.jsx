@@ -6,7 +6,6 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { serverHost } from "../../config/serverHost";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -52,7 +51,7 @@ const Signup = () => {
         },
       };
       const { data } = await axios.post(
-        `${serverHost}/api/user`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/user",
         {
           name,
           email,
@@ -102,8 +101,8 @@ const Signup = () => {
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "dccadxaam");
-      fetch("https://api.cloudinary.com/v1_1/dccadxaam/image/upload", {
+      data.append("cloud_name", import.meta.env.CLOUDINARY_CLOUD_NAME);
+      fetch(import.meta.env.CLOUDINARY_API, {
         method: "post",
         body: data,
       })

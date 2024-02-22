@@ -15,7 +15,6 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
-import { serverHost } from "../config/serverHost";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
@@ -33,7 +32,10 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get(`${serverHost}/api/chat`, config);
+      const { data } = await axios.get(
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/chat",
+        config
+      );
       setChats(data);
     } catch (error) {
       toast({

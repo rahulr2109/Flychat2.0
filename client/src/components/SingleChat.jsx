@@ -10,9 +10,8 @@ import animationData from "../animations/typing.json";
 
 import io from "socket.io-client";
 import { ChatState } from "../Context/ChatProvider";
-import { serverHost } from "../config/serverHost";
 import { Spinner, useToast } from "@chakra-ui/react";
-const ENDPOINT = serverHost;
+const ENDPOINT = import.meta.env.VITE_SERVER_DOMAIN;
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain, functionFromParent }) => {
@@ -48,7 +47,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain, functionFromParent }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `${serverHost}/api/message/${selectedChat._id}`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/message/${selectedChat._id}",
         config
       );
       setMessages(data);
@@ -79,7 +78,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain, functionFromParent }) => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          `${serverHost}/api/message`,
+          import.meta.env.VITE_SERVER_DOMAIN + "/api/message",
           {
             content: newMessage,
             chatId: selectedChat,

@@ -21,7 +21,6 @@ import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
-import { serverHost } from "../../config/serverHost";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,7 +47,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.get(
-        `${serverHost}/api/user?search=${search}`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/user?search=${search}",
         config
       );
       console.log(data);
@@ -78,7 +77,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `${serverHost}/api/chat/rename`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/chat/rename",
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -136,7 +135,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `${serverHost}/api/chat/groupadd`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/chat/groupadd",
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -181,7 +180,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `${serverHost}/api/chat/groupremove`,
+        import.meta.env.VITE_SERVER_DOMAIN + "/api/chat/groupremove",
         {
           chatId: selectedChat._id,
           userId: user1._id,
